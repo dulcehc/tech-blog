@@ -26,12 +26,9 @@ spotlight:
     - Hands-on labs vs talks
     - Integration with real business data
   communities:
-    - name: Claude Community México
-      url: https://claudecommunity.mx
-      note: Local Claude meetups organized by the community
     - name: Salesforce México
       url: https://www.linkedin.com/company/salesforce
-      note: Lab host. CRM ecosystem and Agentforce
+      note: Event host. CRM ecosystem and Agentforce
   people:
     - name: Gabriel Ramirez
       role: organizer
