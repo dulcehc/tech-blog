@@ -1,0 +1,135 @@
+---
+import type { Neighbor } from "../lib/neighbors";
+
+interface Props {
+  next: Neighbor;
+}
+
+const { next } = Astro.props;
+---
+
+<a
+  class="page-turn"
+  href={next.href}
+  aria-label={`Next entry: ${next.title}`}
+>
+  <span class="page-turn__copy">
+    <span class="page-turn__kicker">Next entry</span>
+    <span class="page-turn__title">{next.title}</span>
+  </span>
+  <span class="page-turn__stage" aria-hidden="true">
+    <span class="page-turn__peek"></span>
+    <span class="page-turn__fold"></span>
+  </span>
+</a>
+
+<style>
+  .page-turn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 6;
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) 7.5rem;
+    align-items: end;
+    width: min(20rem, 70%);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .page-turn__copy {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0 0.75rem 1.5rem 0;
+    text-align: right;
+    opacity: 0.8;
+    transition: opacity 220ms ease;
+  }
+
+  .page-turn__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .page-turn__title {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    line-height: 1.25;
+    color: var(--color-ink);
+  }
+
+  .page-turn__stage {
+    position: relative;
+    height: 7.5rem;
+  }
+
+  .page-turn__peek,
+  .page-turn__fold {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  .page-turn__peek {
+    width: 7.5rem;
+    height: 7.5rem;
+    background: #c4b196;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+
+  .page-turn__fold {
+    width: 6.75rem;
+    height: 6.75rem;
+    background: linear-gradient(
+      225deg,
+      #fffef9 0%,
+      #f7efe3 38%,
+      #e2d3bb 100%
+    );
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    filter: drop-shadow(-12px -12px 16px rgba(28, 20, 12, 0.28));
+    transform-origin: 100% 100%;
+    transform: translate3d(-10%, -10%, 0) rotate(-7deg);
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .page-turn:hover .page-turn__copy,
+  .page-turn:focus-visible .page-turn__copy {
+    opacity: 1;
+  }
+
+  .page-turn:hover .page-turn__fold,
+  .page-turn:focus-visible .page-turn__fold {
+    transform: translate3d(-18%, -18%, 0) rotate(-12deg);
+  }
+
+  .page-turn:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 40rem) {
+    .page-turn {
+      width: 7.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    .page-turn__copy {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-turn__fold,
+    .page-turn__copy {
+      transition: none;
+    }
+  }
+</style>

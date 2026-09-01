@@ -1,0 +1,76 @@
+id: 2026-08-claude-healthcare-cdmx
+title: "Claude for Healthcare · CDMX"
+slug: claude-healthcare-cdmx
+date: 2026-08-14
+type: attendance
+status: published
+series: cdmx-tech-summer-2026
+venue: Novartis México
+location: Ciudad de México
+summary: >-
+  First Claude Community healthcare meetup in CDMX. Real AI cases in pharma,
+  hospitals, and healthtech, with no vendor pitch.
+description: >-
+  Field notes from the Claude for Healthcare meetup at Novartis CDMX: speakers,
+  communities, and AI in health.
+tags:
+  - claude
+  - healthcare
+  - ai
+  - healthtech
+  - cdmx
+spotlight:
+  topics:
+    - AI-assisted diagnosis
+    - Clinical data and decision making
+    - Pharmacovigilance with Claude
+    - Detecting medicine side effects
+    - Safe agent systems in pharma
+    - Trust, safety, and compliance
+  communities:
+    - name: Claude Community México
+      url: https://claudecommunity.mx
+      note: Calendar of Claude meetups by vertical in CDMX
+    - name: Novartis México
+      note: Event host. Pharma and health innovation
+  people:
+    - name: Ricardo Lira de la Vega
+      role: organizer
+      link: https://www.linkedin.com/in/ricardolira
+    - name: César Méndez
+      role: organizer
+      link: https://www.linkedin.com/in/devcsar
+    - name: Juan Antonio Rosario
+      role: speaker
+      link: https://www.linkedin.com/in/juanantoniorosario
+    - name: José Luis Santiago
+      role: speaker
+      link: https://www.linkedin.com/in/jlsantiagog
+    - name: Lilivette Cruz
+      role: speaker
+      link: https://www.linkedin.com/in/lilivettecruz
+    - name: Cristyan Gil Morales
+      role: speaker
+      link: https://www.linkedin.com/in/cristyangil
+sources:
+  notes: sources/notes.md
+  slides: sources/slides/
+gallery:
+  - file: published/gallery/claude-healthcare-opening.jpg
+    caption: "Claude for Healthcare at Novartis Mexico"
+  - file: published/gallery/ai-returns-control-to-patient.jpg
+    caption: "AI in health should return control to patients, not only save time"
+  - file: published/gallery/claude-pharmacovigilance.jpg
+    caption: "Arturo Reynoso Santos presenting Claude as operational support for pharmacovigilance"
+  - file: published/gallery/healthcare-ai-playbook.jpg
+    caption: "A healthcare AI playbook built around trust, safety, and compliance"
+  - file: published/gallery/trust-health-information.jpg
+    caption: "Evaluating whether health information can be trusted"
+  - file: published/gallery/claude-healthcare-panel.jpg
+    caption: "Closing panel at Claude for Healthcare CDMX"
+  - file: published/gallery/claude-healthcare-swag.jpg
+    caption: "Claude for Healthcare tote bag and stickers"
+links:
+  event: https://luma.com/claudemexicocityhealthcare
+published:
+  post: published/post.mdx

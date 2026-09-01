@@ -1,0 +1,41 @@
+---
+import { eventSlug, formatLogDate, siteUrl } from "../lib/format";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  event: CollectionEntry<"events">;
+  showVenue?: boolean;
+}
+
+const { event, showVenue = true } = Astro.props;
+const slug = eventSlug(event.id);
+---
+
+<li>
+  <a
+    href={siteUrl(`events/${slug}/`)}
+    class="group grid min-h-24 grid-cols-[7.5rem_1fr] gap-x-6 gap-y-1 border-b border-rule py-5 text-inherit no-underline transition-colors duration-200 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40 max-sm:grid-cols-1 max-sm:gap-1 max-sm:py-4"
+  >
+    <time
+      datetime={event.data.date}
+      class="pt-1.5 font-mono text-[0.7rem] tracking-wide text-muted uppercase max-sm:pt-0"
+    >
+      {formatLogDate(event.data.date)}
+    </time>
+    <div class="grid gap-1">
+      <span
+        class="font-serif text-[1.35rem] leading-snug tracking-tight transition-colors duration-200 group-hover:text-accent"
+      >
+        {event.data.title}
+      </span>
+      {event.data.summary && (
+        <p class="m-0 text-sm leading-6 text-muted">{event.data.summary}</p>
+      )}
+      {showVenue && event.data.venue && (
+        <span class="font-mono text-[0.68rem] tracking-wide text-muted">
+          {event.data.venue}
+        </span>
+      )}
+    </div>
+  </a>
+</li>

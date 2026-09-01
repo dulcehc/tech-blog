@@ -1,0 +1,86 @@
+id: 2026-08-aws-summit-mexico-city
+title: "AWS Summit Ciudad de México 2026"
+slug: aws-summit-mexico-city
+date: 2026-08-12
+type: attendance
+status: published
+series: cdmx-tech-summer-2026
+venue: Centro Citibanamex
+location: Ciudad de México
+summary: >-
+  Annual AWS summit in Mexico. 120+ technical sessions, partner expo, and a
+  keynote on cloud, data, and generative AI.
+description: >-
+  Field notes from AWS Summit CDMX 2026: sessions, communities, and cloud
+  in Mexico.
+tags:
+  - aws
+  - cloud
+  - ai
+  - conference
+  - cdmx
+spotlight:
+  topics:
+    - AI agent authorization and identity
+    - Event-driven architecture for agents
+    - Amazon Bedrock and custom agent workflows
+    - Amazon S3 Vectors
+    - Observability and cloud security
+  communities:
+    - name: AWS Builder Center
+      url: https://builder.aws.com/
+      note: Resources and community for builders using AWS
+    - name: AWS Community Day / AWS Summits LATAM
+      url: https://aws.amazon.com/es/events/
+      note: Official Amazon Web Services events in the region
+    - name: AWS Tech Girls
+      url: https://www.linkedin.com/company/awstechgirls
+      note: Spanish-speaking AWS community for learning cloud
+    - name: AWS UG Mixtli
+      url: https://www.linkedin.com/company/awsugmixtli
+      note: AWS user group based in Cholula, Puebla
+  people:
+    - name: Hazel Saenz
+      role: community
+      link: https://www.linkedin.com/in/hazelsaenz
+    - name: Guille Ojeda
+      role: speaker
+      link: https://www.linkedin.com/in/guilleojeda
+    - name: Verónica Rivera
+      role: speaker
+      link: https://www.linkedin.com/in/riverave
+    - name: pixelead0 Adan GQ
+      role: community
+      link: https://www.linkedin.com/in/pixelead0
+sources:
+  notes: sources/notes.md
+  slides: sources/slides/
+gallery:
+  - file: published/gallery/aws-marketplace-expo.jpg
+    caption: "AWS Marketplace partner booths at the expo"
+  - file: published/gallery/agent-authorization-talk.jpg
+    caption: "Guille Ojeda presenting authorization layers for AI agents with production access"
+  - file: published/gallery/identity-cognito-iam.jpg
+    caption: "Identity propagation from Amazon Cognito to IAM"
+  - file: published/gallery/agent-authorization-architecture.jpg
+    caption: "Architecture for controlled agent access to production resources"
+  - file: published/gallery/eda-agents-aws.jpg
+    caption: "Rodrigo Cabrera presenting event-driven architecture and agents on AWS"
+  - file: published/gallery/async-callback-compensation.jpg
+    caption: "Asynchronous callbacks and compensation in an event-driven agent workflow"
+  - file: published/gallery/sentiment-agent-hot-path.jpg
+    caption: "A sentiment agent hot path with escalation to a supervisor agent"
+  - file: published/gallery/amazon-s3-vectors.jpg
+    caption: "Amazon S3 Vectors for storing and querying vectors"
+  - file: published/gallery/custom-agent-workflows.jpg
+    caption: "Building custom agents with tools, memory, models, and guardrails"
+  - file: published/gallery/aws-summit-mariachi.jpg
+    caption: "Mariachi performance at AWS Summit Mexico City"
+  - file: published/gallery/aws-expo-floor.jpg
+    caption: "The AWS Summit expo floor"
+  - file: published/gallery/aws-summit-swag.jpg
+    caption: "AWS Summit Mexico City shirt, socks, stickers, and pins"
+links:
+  event: https://aws.amazon.com/es/events/summits/mexico-city/
+published:
+  post: published/post.mdx

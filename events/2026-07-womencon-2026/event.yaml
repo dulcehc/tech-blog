@@ -1,0 +1,94 @@
+id: 2026-07-womencon-2026
+title: "WomenCon 2026"
+slug: womencon-2026
+date: 2026-07-25
+type: attendance
+status: published
+series: cdmx-tech-summer-2026
+venue: IQsec
+location: Ciudad de México
+summary: >-
+  A community-focused cybersecurity event with talks on practical security,
+  AI, leadership, and risk communication.
+description: >-
+  Field notes from WomenCon 2026 at IQsec: speakers, communities, and personal
+  takeaways from a day in CDMX's security scene.
+tags:
+  - cybersecurity
+  - conference
+  - cdmx
+  - community
+spotlight:
+  topics:
+    - SOC and incident response
+    - Ethical hacking and CTFs
+    - Forensics and log correlation
+    - Post-quantum cyber defense and cloud
+    - AI agents in security operations
+    - Governance, IT-OT, and resilience
+    - Women's alliances in tech
+  communities:
+    - name: WomenCon
+      url: https://www.linkedin.com/company/womencon
+      note: Annual cybersecurity and innovation conference
+    - name: IQsec
+      url: https://www.linkedin.com/company/iqsec-ciberseguridad
+      note: Venue at Av. Patriotismo 399, San Pedro de los Pinos
+    - name: Los Ciberamigos
+      url: https://www.linkedin.com/in/los-ciberamig-os-ba73a9353/
+      note: Cybersecurity community in Mexico
+    - name: PurpleSpace Academy
+      url: https://purplespace-academy.com/
+      note: Practical and accessible cybersecurity education community
+    - name: WoSEC México
+      url: https://www.wosecmexico.org/
+      note: Community for women interested in cybersecurity across Mexico
+  people:
+    - name: Carolina Chávez Morales
+      role: organizer
+      link: https://www.linkedin.com/in/carolina-ch%C3%A1vez-morales-093828145
+    - name: Itzel Segoviano
+      role: organizer
+      link: https://www.linkedin.com/in/itzel-segoviano/
+    - name: Angélica Arana
+      role: speaker
+      link: https://www.linkedin.com/in/angelica-arana
+    - name: Lorena Bravo
+      role: speaker
+      link: https://www.linkedin.com/in/lorenabravo
+    - name: Alicia Trejo
+      role: speaker
+      link: https://www.linkedin.com/in/aliciaedithtrejo
+    - name: Lola Cervantes Araujo
+      role: speaker
+      link: https://www.linkedin.com/in/lola-cervantes-araujo-6102832a4
+    - name: Hannia Morales
+      role: speaker
+      link: https://www.linkedin.com/in/hanniamorales
+    - name: Nancy Itzel Verheyden
+      role: speaker
+      link: https://www.linkedin.com/in/nancy-itzel
+sources:
+  notes: sources/notes.md
+  slides: sources/slides/
+gallery:
+  - file: published/gallery/barriers-women-in-tech.jpg
+    caption: "Block 2: barriers women report in tech (TrustRadius via Escudo Digital)"
+  - file: published/gallery/human-factor-tickets.jpg
+    caption: "Many attacks enter as misclassified tickets. The human factor in breaches"
+  - file: published/gallery/lolbins-wosec.jpg
+    caption: "Living off the land binaries: native OS tools reused for attacks"
+  - file: published/gallery/programmer-pentester-blue-team.jpg
+    caption: "Three roles in security: builder, breaker, defender"
+  - file: published/gallery/attacker-vs-citizen.jpg
+    caption: "The attacker automates and uses AI. The citizen has to get it right every time"
+  - file: published/gallery/post-quantum-cloud.jpg
+    caption: "Post-quantum era: understand, prepare, and build resilient cloud architectures"
+  - file: published/gallery/director-of-agents.jpg
+    caption: "The Director of Agents: one analyst backed by an agent stack"
+  - file: published/gallery/womencon-swag.jpg
+    caption: "WomenCon shirt, badge, pins, and lanyard"
+links:
+  event: https://luma.com/kd1lpiqb
+published:
+  post: published/post.mdx

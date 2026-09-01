@@ -1,0 +1,105 @@
+---
+import ChipList from "./ChipList.astro";
+import { ArrowUpRight } from "@lucide/astro";
+
+interface Props {
+  spotlight?: {
+    topics?: string[];
+    communities?: Array<{ name: string; url?: string; note?: string }>;
+    people?: Array<{
+      name: string;
+      role?: "organizer" | "speaker" | "community" | "other";
+      link: string;
+    }>;
+  };
+}
+
+const { spotlight } = Astro.props;
+
+const topics = spotlight?.topics ?? [];
+const communities = spotlight?.communities ?? [];
+const people = spotlight?.people ?? [];
+
+const hasContent =
+  topics.length > 0 || communities.length > 0 || people.length > 0;
+---
+
+{hasContent && (
+  <aside
+    class="mb-10 border-y border-rule py-6"
+    aria-label="Event overview"
+  >
+    {topics.length > 0 && (
+      <section>
+        <span class="mb-2 block font-mono text-[0.68rem] tracking-[0.14em] text-muted uppercase">
+          Topics
+        </span>
+        <ChipList items={topics} />
+      </section>
+    )}
+
+    {communities.length > 0 && (
+      <section class:list={[topics.length > 0 && "mt-6 border-t border-rule pt-6"]}>
+        <span class="mb-2 block font-mono text-[0.68rem] tracking-[0.14em] text-muted uppercase">
+          Communities
+        </span>
+        <ul class="m-0 grid list-none gap-3 p-0">
+          {communities.map((c) => (
+            <li>
+              {c.url ? (
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-medium text-accent no-underline hover:underline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40"
+                >
+                  {c.name}
+                </a>
+              ) : (
+                c.name
+              )}
+              {c.note && (
+                <span class="mt-1 block text-sm leading-6 text-muted">{c.note}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {people.length > 0 && (
+      <section
+        class:list={[
+          (topics.length > 0 || communities.length > 0) &&
+            "mt-6 border-t border-rule pt-6",
+        ]}
+      >
+        <span class="mb-2 block font-mono text-[0.68rem] tracking-[0.14em] text-muted uppercase">
+          People to follow
+        </span>
+        <ul class="m-0 grid list-none gap-x-6 gap-y-2 p-0 sm:grid-cols-2">
+          {people.map((person) => (
+            <li>
+              <a
+                href={person.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group inline-flex items-center gap-1 font-medium text-ink no-underline transition-colors hover:text-accent focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40"
+              >
+                {person.name}
+                <ArrowUpRight
+                  size={14}
+                  aria-hidden="true"
+                  class="text-muted transition-colors group-hover:text-accent"
+                />
+              </a>
+              {person.role && (
+                <span class="block text-xs text-muted capitalize">{person.role}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </aside>
+)}

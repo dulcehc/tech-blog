@@ -1,0 +1,19 @@
+---
+interface Props {
+  label: string;
+  muted?: boolean;
+}
+
+const { label, muted = false } = Astro.props;
+---
+
+<span
+  class:list={[
+    "inline-flex items-center py-0.5 font-mono text-[0.68rem] tracking-[0.12em] uppercase",
+    muted
+      ? "text-muted"
+      : "text-accent",
+  ]}
+>
+  {label}
+</span>

@@ -1,0 +1,26 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import JournalShell from "../components/JournalShell.astro";
+import "../styles/global.css";
+import "../styles/transitions.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth min-h-dvh bg-desk" transition:animate="none">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="m-0 min-h-dvh bg-desk font-sans leading-7 text-ink antialiased">
+    <JournalShell>
+      <slot />
+      <slot name="corner" slot="corner" />
+    </JournalShell>
+  </body>
+</html>

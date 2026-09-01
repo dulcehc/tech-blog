@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from "astro:content";
+import EventLayout from "../../layouts/EventLayout.astro";
+import JournalHeading from "../../components/JournalHeading.astro";
+import { journalNeighbors } from "../../lib/neighbors";
+
+export async function getStaticPaths() {
+  const events = await getCollection("events", ({ data }) => !data.draft);
+
+  return events.map((event) => ({
+    params: { slug: event.id.replace(/\/index$/, "") },
+    props: {
+      event,
+      ...journalNeighbors(events, event.id),
+    },
+  }));
+}
+
+const { event, next } = Astro.props;
+const { Content } = await render(event);
+---
+
+<EventLayout {...event.data} next={next}>
+  <Content components={{ h2: JournalHeading }} />
+</EventLayout>

@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import { eventYear } from "../../lib/archive";
+import { siteUrl } from "../../lib/format";
+
+export async function getStaticPaths() {
+  const events = await getCollection("events", ({ data }) => !data.draft);
+  const seriesSlugs = [
+    ...new Set(events.map((event) => event.data.series).filter(Boolean)),
+  ] as string[];
+
+  return seriesSlugs.map((series) => {
+    const inSeries = events.filter((event) => event.data.series === series);
+    const year = eventYear(inSeries[0]?.data.date ?? "2026-01-01");
+
+    return {
+      params: { slug: series },
+      props: { href: siteUrl(`${year}/`) },
+    };
+  });
+}
+
+const { href } = Astro.props;
+return Astro.redirect(href, 301);
+---

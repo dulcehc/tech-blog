@@ -1,0 +1,69 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArchiveFilters from "../../components/ArchiveFilters.astro";
+import EntryList from "../../components/EntryList.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import PageColumn from "../../components/PageColumn.astro";
+import { eventMonth, eventYear, monthHeading } from "../../lib/archive";
+
+export async function getStaticPaths() {
+  const events = (await getCollection("events", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.localeCompare(a.data.date),
+  );
+
+  const keys = [
+    ...new Set(
+      events.map((event) => `${eventYear(event.data.date)}/${eventMonth(event.data.date)}`),
+    ),
+  ];
+
+  return keys.map((key) => {
+    const [year, month] = key.split("/");
+    const filtered = events.filter(
+      (event) =>
+        eventYear(event.data.date) === year && eventMonth(event.data.date) === month,
+    );
+
+    return {
+      params: { year, month },
+      props: {
+        year,
+        month,
+        events,
+        filtered,
+        heading: monthHeading(filtered[0].data.date),
+      },
+    };
+  });
+}
+
+const { year, month, events, filtered, heading } = Astro.props;
+---
+
+<BaseLayout
+  title={`${heading} · CDMX Tech Journal`}
+  description={`Event notes from ${heading} in Mexico City.`}
+>
+  <SiteHeader />
+
+  <PageColumn>
+    <header class="pt-12 pb-8 text-left">
+      <p class="mb-3 font-mono text-[0.68rem] tracking-[0.16em] text-muted uppercase">
+        Journal
+      </p>
+      <h1 class="mb-3 font-serif text-[clamp(2.25rem,6vw,3.5rem)] leading-none">
+        {heading}
+      </h1>
+      <p class="m-0 font-mono text-[0.75rem] tracking-wide text-muted">
+        {filtered.length} {filtered.length === 1 ? "entry" : "entries"}
+      </p>
+    </header>
+
+    <ArchiveFilters events={events} year={year} month={month} />
+
+    <main class="pb-16">
+      <EntryList events={filtered} heading="Entries" />
+    </main>
+  </PageColumn>
+</BaseLayout>

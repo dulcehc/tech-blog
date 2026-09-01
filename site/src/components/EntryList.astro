@@ -1,0 +1,39 @@
+---
+import EventCard from "./EventCard.astro";
+import { groupByMonth, type EventEntry } from "../lib/archive";
+
+interface Props {
+  events: EventEntry[];
+  heading?: string;
+}
+
+const { events, heading = "Entries" } = Astro.props;
+const groups = groupByMonth(events);
+---
+
+<section>
+  <h2 class="mb-3 font-mono text-[0.68rem] tracking-[0.16em] text-muted uppercase">
+    {heading}
+  </h2>
+
+  {events.length === 0 ? (
+    <p class="border-t border-rule py-12 text-muted">No entries in this period.</p>
+  ) : (
+    <div class="border-t border-rule">
+      {groups.map((group) => (
+        <section class="pt-8 first:pt-6">
+          {groups.length > 1 && (
+            <h3 class="mb-1 font-mono text-[0.65rem] tracking-[0.14em] text-muted uppercase">
+              {group.heading}
+            </h3>
+          )}
+          <ul class="m-0 list-none p-0">
+            {group.events.map((event) => (
+              <EventCard event={event} />
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  )}
+</section>

@@ -1,0 +1,128 @@
+---
+import { pageTurn } from "../lib/page-turn";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["desk", className]}>
+  <div class="journal" transition:name="journal" transition:animate={pageTurn}>
+    <div class="journal-spine" aria-hidden="true"></div>
+    <div class="journal-page">
+      <slot />
+    </div>
+    <slot name="corner" />
+  </div>
+</div>
+
+<style>
+  .desk {
+    min-height: 100dvh;
+    background-color: var(--color-desk);
+    background-image: radial-gradient(
+      ellipse 80% 50% at 50% 0%,
+      #a38c75 0%,
+      transparent 58%
+    );
+  }
+
+  .journal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(calc(100% - 2.5rem), var(--width-journal));
+    min-height: 100dvh;
+    margin: 0 auto;
+    overflow: visible;
+    background: var(--color-paper);
+    box-shadow: var(--shadow-journal);
+  }
+
+  .journal:has(.page-turn) .journal-page {
+    padding-bottom: 10rem;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 7.5rem),
+      calc(100% - 7.5rem) 100%,
+      0 100%
+    );
+  }
+
+  .journal-spine {
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 2;
+    width: 1.2rem;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        transparent 0 4rem,
+        rgba(255, 244, 220, 0.08) 4rem 4.06rem,
+        transparent 4.06rem 8rem
+      ),
+      linear-gradient(
+        90deg,
+        #0c0a08 0%,
+        #3f342a 40%,
+        #261e18 72%,
+        #120f0c 100%
+      );
+    box-shadow:
+      inset -1px 0 0 rgba(212, 168, 110, 0.18),
+      10px 0 22px rgba(20, 14, 8, 0.22);
+  }
+
+  .journal-page {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 100dvh;
+    padding-left: 1.2rem;
+    background:
+      linear-gradient(90deg, rgba(28, 20, 12, 0.1) 0, transparent 2.75rem),
+      var(--color-paper);
+  }
+
+  .journal-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @media (max-width: 45rem) {
+    .journal {
+      width: 100%;
+      box-shadow: none;
+    }
+
+    .journal-spine {
+      width: 0.45rem;
+    }
+
+    .journal-page {
+      padding-left: 0.45rem;
+      background:
+        linear-gradient(90deg, rgba(28, 20, 12, 0.08) 0, transparent 1.5rem),
+        var(--color-paper);
+    }
+  }
+
+  @media (max-width: 26.25rem) {
+    .journal-spine {
+      display: none;
+    }
+
+    .journal-page {
+      padding-left: 0;
+      background: var(--color-paper);
+    }
+  }
+</style>

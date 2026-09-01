@@ -1,0 +1,21 @@
+---
+import { siteUrl } from "../lib/format";
+import PageColumn from "./PageColumn.astro";
+
+interface Props {
+  label?: string;
+}
+
+const { label = "All entries" } = Astro.props;
+---
+
+<PageColumn class="mt-auto">
+  <footer class="border-t border-rule pt-10 pb-6">
+    <a
+      href={siteUrl()}
+      class="font-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase no-underline transition-colors duration-200 hover:text-accent focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40"
+    >
+      ← {label}
+    </a>
+  </footer>
+</PageColumn>

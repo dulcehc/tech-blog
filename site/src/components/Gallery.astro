@@ -1,0 +1,256 @@
+---
+import { ChevronLeft, ChevronRight, X, ZoomIn } from "@lucide/astro";
+
+interface Props {
+  items: Array<{
+    src: string;
+    caption?: string;
+    alt?: string;
+  }>;
+}
+
+const { items } = Astro.props;
+const carouselId = `gallery-${Math.random().toString(36).slice(2, 9)}`;
+const base = import.meta.env.BASE_URL;
+
+function gallerySrc(src: string): string {
+  const normalized = src.replace(/^\.\//, "").replace(/^\//, "");
+  return `${base}${normalized}`;
+}
+---
+
+{items.length > 0 && (
+  <section class="gallery mb-8" aria-label="Event photos">
+    <div
+      class="gallery-track flex snap-x snap-mandatory overflow-x-auto scroll-smooth bg-paper-raised"
+      id={carouselId}
+      data-count={items.length}
+    >
+      {items.map((item, i) => (
+        <figure class="m-0 basis-full snap-start" data-index={i}>
+          <button
+            type="button"
+            class="zoom-trigger group relative block w-full cursor-zoom-in border-0 bg-transparent p-0 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40"
+            aria-label={`Open photo ${i + 1} of ${items.length}`}
+          >
+            <img
+              src={gallerySrc(item.src)}
+              alt={item.alt ?? item.caption ?? `Slide ${i + 1}`}
+              loading={i === 0 ? "eager" : "lazy"}
+              class="block max-h-112 w-full object-contain"
+            />
+            <span
+              class="absolute right-3 bottom-3 inline-flex items-center gap-1.5 rounded-full bg-ink/80 px-3 py-1.5 text-xs font-medium text-paper opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+              aria-hidden="true"
+            >
+              <ZoomIn size={15} stroke-width={1.8} />
+              Enlarge
+            </span>
+          </button>
+          {item.caption && (
+            <figcaption class="px-1 py-3 text-sm text-muted">
+              {item.caption}
+            </figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
+    {items.length > 1 && (
+      <div class="mt-3 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          class="gallery-btn inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-rule bg-paper text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40"
+          data-action="prev"
+          aria-label="Previous photo"
+        >
+          <ChevronLeft size={19} aria-hidden="true" />
+        </button>
+        <span
+          class="min-w-12 text-center text-sm text-muted"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          <span data-current>1</span> / {items.length}
+        </span>
+        <button
+          type="button"
+          class="gallery-btn inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-rule bg-paper text-ink transition-colors hover:border-accent hover:text-accent focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40"
+          data-action="next"
+          aria-label="Next photo"
+        >
+          <ChevronRight size={19} aria-hidden="true" />
+        </button>
+      </div>
+    )}
+
+    <dialog
+      class="lightbox m-auto h-dvh max-h-none w-screen max-w-none bg-transparent p-0 text-paper backdrop:bg-ink/90"
+      aria-label="Photo viewer"
+    >
+      <div class="lightbox-surface relative flex h-full w-full items-center justify-center p-6 max-sm:p-3">
+        <button
+          type="button"
+          class="lightbox-close absolute top-4 right-4 z-10 inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-paper/25 bg-ink/70 text-paper transition-colors hover:bg-paper hover:text-ink focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-paper/60"
+          aria-label="Close photo viewer"
+        >
+          <X size={22} aria-hidden="true" />
+        </button>
+
+        {items.length > 1 && (
+          <button
+            type="button"
+            class="lightbox-nav lightbox-prev absolute top-1/2 left-4 z-10 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-paper/25 bg-ink/70 text-paper transition-colors hover:bg-paper hover:text-ink focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-paper/60 max-sm:left-2"
+            aria-label="Previous enlarged photo"
+          >
+            <ChevronLeft size={23} aria-hidden="true" />
+          </button>
+        )}
+
+        <figure class="m-0 flex h-full w-full flex-col items-center justify-center gap-4">
+          <img
+            class="lightbox-image max-h-[calc(100dvh-7rem)] max-w-[calc(100vw-8rem)] object-contain max-sm:max-w-[calc(100vw-2rem)]"
+            src=""
+            alt=""
+          />
+          <figcaption class="lightbox-caption max-w-3xl text-center text-sm text-paper/80">
+          </figcaption>
+        </figure>
+
+        {items.length > 1 && (
+          <button
+            type="button"
+            class="lightbox-nav lightbox-next absolute top-1/2 right-4 z-10 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-paper/25 bg-ink/70 text-paper transition-colors hover:bg-paper hover:text-ink focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-paper/60 max-sm:right-2"
+            aria-label="Next enlarged photo"
+          >
+            <ChevronRight size={23} aria-hidden="true" />
+          </button>
+        )}
+      </div>
+    </dialog>
+  </section>
+)}
+
+<style>
+  .gallery-track {
+    scrollbar-width: none;
+  }
+
+  .gallery-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  figure {
+    flex: 0 0 100%;
+  }
+</style>
+
+<script>
+  function unlockBodyScroll() {
+    document.body.style.overflow = "";
+  }
+
+  function bindGalleries() {
+    document.querySelectorAll<HTMLElement>(".gallery").forEach((gallery) => {
+      if (gallery.dataset.bound === "true") return;
+      gallery.dataset.bound = "true";
+
+      const track = gallery.querySelector(".gallery-track") as HTMLElement | null;
+      const counter = gallery.querySelector("[data-current]");
+      const slides = Array.from(
+        gallery.querySelectorAll<HTMLElement>("[data-index]"),
+      );
+      const dialog = gallery.querySelector<HTMLDialogElement>(".lightbox");
+      const lightboxImage = dialog?.querySelector<HTMLImageElement>(".lightbox-image");
+      const lightboxCaption = dialog?.querySelector<HTMLElement>(".lightbox-caption");
+      let activeIndex = 0;
+      let returnFocus: HTMLElement | null = null;
+
+      if (!track || slides.length === 0) return;
+
+      const updateCounter = () => {
+        const slideWidth = track.clientWidth || 1;
+        const index = Math.round(track.scrollLeft / slideWidth);
+        activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+        if (counter) counter.textContent = String(activeIndex + 1);
+      };
+
+      track.addEventListener("scroll", updateCounter, { passive: true });
+
+      gallery.querySelectorAll(".gallery-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const action = (btn as HTMLElement).dataset.action;
+          const offset = action === "next" ? 1 : -1;
+          activeIndex = (activeIndex + offset + slides.length) % slides.length;
+          track.scrollTo({
+            left: activeIndex * track.clientWidth,
+            behavior: "smooth",
+          });
+        });
+      });
+
+      const showPhoto = (index: number) => {
+        if (!dialog || !lightboxImage || !lightboxCaption) return;
+
+        activeIndex = (index + slides.length) % slides.length;
+        const image = slides[activeIndex].querySelector<HTMLImageElement>("img");
+        const caption = slides[activeIndex].querySelector("figcaption");
+        if (!image) return;
+
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt;
+        lightboxCaption.textContent = caption?.textContent?.trim() ?? "";
+        lightboxCaption.hidden = !lightboxCaption.textContent;
+
+        track.scrollTo({
+          left: activeIndex * track.clientWidth,
+          behavior: "smooth",
+        });
+      };
+
+      slides.forEach((slide, index) => {
+        slide.querySelector(".zoom-trigger")?.addEventListener("click", (event) => {
+          if (!dialog) return;
+          returnFocus = event.currentTarget as HTMLElement;
+          showPhoto(index);
+          dialog.showModal();
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      dialog?.querySelector(".lightbox-close")?.addEventListener("click", () => {
+        dialog.close();
+      });
+
+      dialog?.querySelector(".lightbox-prev")?.addEventListener("click", () => {
+        showPhoto(activeIndex - 1);
+      });
+
+      dialog?.querySelector(".lightbox-next")?.addEventListener("click", () => {
+        showPhoto(activeIndex + 1);
+      });
+
+      dialog?.querySelector(".lightbox-surface")?.addEventListener("click", (event) => {
+        if (event.target === event.currentTarget) dialog.close();
+      });
+
+      dialog?.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          showPhoto(activeIndex - 1);
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          showPhoto(activeIndex + 1);
+        }
+      });
+
+      dialog?.addEventListener("close", () => {
+        unlockBodyScroll();
+        returnFocus?.focus();
+      });
+    });
+  }
+
+  document.addEventListener("astro:page-load", bindGalleries);
+  document.addEventListener("astro:before-swap", unlockBodyScroll);
+</script>

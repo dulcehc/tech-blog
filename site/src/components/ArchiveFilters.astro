@@ -1,0 +1,80 @@
+---
+import { siteUrl } from "../lib/format";
+import {
+  monthShortLabel,
+  uniqueMonths,
+  uniqueYears,
+  type EventEntry,
+} from "../lib/archive";
+
+interface Props {
+  events: EventEntry[];
+  year?: string;
+  month?: string;
+}
+
+const { events, year, month } = Astro.props;
+const years = uniqueYears(events);
+const monthsYear = year ?? (years.length === 1 ? years[0] : undefined);
+const months = monthsYear
+  ? uniqueMonths(events.filter((event) => event.data.date.startsWith(`${monthsYear}-`)))
+  : [];
+const monthAllHref = year ? siteUrl(`${year}/`) : siteUrl();
+
+const linkClass =
+  "font-mono text-[0.7rem] tracking-[0.12em] uppercase no-underline transition-colors duration-200 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent/40";
+---
+
+<nav aria-label="Filter by date" class="mb-10 grid gap-4">
+  <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+    <span class="font-mono text-[0.65rem] tracking-[0.16em] text-muted uppercase">
+      Year
+    </span>
+    <a
+      href={siteUrl()}
+      class:list={[linkClass, year ? "text-muted hover:text-accent" : "text-ink"]}
+      aria-current={year ? undefined : "page"}
+    >
+      All
+    </a>
+    {years.map((item) => (
+      <a
+        href={siteUrl(`${item}/`)}
+        class:list={[
+          linkClass,
+          year === item ? "text-ink" : "text-muted hover:text-accent",
+        ]}
+        aria-current={year === item && !month ? "page" : undefined}
+      >
+        {item}
+      </a>
+    ))}
+  </div>
+
+  {monthsYear && months.length > 1 && (
+    <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+      <span class="font-mono text-[0.65rem] tracking-[0.16em] text-muted uppercase">
+        Month
+      </span>
+      <a
+        href={monthAllHref}
+        class:list={[linkClass, month ? "text-muted hover:text-accent" : "text-ink"]}
+        aria-current={year && !month ? "page" : undefined}
+      >
+        All
+      </a>
+      {months.map((item) => (
+        <a
+          href={siteUrl(`${monthsYear}/${item}/`)}
+          class:list={[
+            linkClass,
+            month === item ? "text-ink" : "text-muted hover:text-accent",
+          ]}
+          aria-current={month === item ? "page" : undefined}
+        >
+          {monthShortLabel(item)}
+        </a>
+      ))}
+    </div>
+  )}
+</nav>

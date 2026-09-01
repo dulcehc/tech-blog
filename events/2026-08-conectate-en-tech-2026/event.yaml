@@ -1,0 +1,66 @@
+id: 2026-08-conectate-en-tech-2026
+title: "Conéctate en Tech 2026"
+slug: conectate-en-tech-2026
+date: 2026-08-06
+type: attendance
+status: published
+series: cdmx-tech-summer-2026
+venue: Sofitel Mexico City Reforma
+location: Ciudad de México
+summary: >-
+  Large gathering for women in tech in Mexico. AI masterclasses, leadership talks,
+  and networking on the 40th floor of Reforma.
+description: >-
+  Field notes from Conéctate en Tech 2026: community, speakers, and why it
+  matters for professional growth in CDMX tech.
+tags:
+  - community
+  - leadership
+  - ai
+  - cdmx
+spotlight:
+  topics:
+    - AI as a career copilot
+    - Intentional leadership
+    - Professional growth in tech
+    - Networking among women in technology
+  communities:
+    - name: Mujeres en Tech
+      url: https://www.linkedin.com/company/mujeres-en-tech
+      note: Community for women in technology in Mexico
+  people:
+    - name: Anaid Sustaita
+      role: organizer
+      link: https://www.linkedin.com/in/anaid-sustaita-75a958107
+    - name: Ana Paula Padilla
+      role: speaker
+      link: https://www.linkedin.com/in/anapaulapadilla
+    - name: Anna Lagos
+      role: speaker
+      link: https://www.linkedin.com/in/annalagos
+    - name: María Teresa Arnal
+      role: speaker
+      link: https://www.linkedin.com/in/maria-teresa-arnal-880117
+    - name: Plenna
+      role: speaker
+      link: https://www.linkedin.com/company/soyplenna
+sources:
+  notes: sources/notes.md
+  slides: sources/slides/
+gallery:
+  - file: published/gallery/conectate-en-tech-opening.jpg
+    caption: "Conéctate en Tech 2026 at Sofitel Mexico City Reforma"
+  - file: published/gallery/ai-career-coach-opening-prompt.jpg
+    caption: "Anna Lagos: opening prompt for using AI as a career coach"
+  - file: published/gallery/ai-career-kit-resources.jpg
+    caption: "Resources from the AI career toolkit"
+  - file: published/gallery/unfiltered-panel.jpg
+    caption: "UNFILTERED panel: what leaders learned when things did not go as planned"
+  - file: published/gallery/maria-teresa-arnal-masterclass.jpg
+    caption: "María Teresa Arnal leading the intentional career masterclass"
+  - file: published/gallery/mujeres-en-tech-swag.jpg
+    caption: "Mujeres en Tech pouch, stickers, and accessories"
+links:
+  event: https://luma.com/pead0rnu
+published:
+  post: published/post.mdx

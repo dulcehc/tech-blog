@@ -1,0 +1,28 @@
+---
+import { Lightbulb, ListChecks, NotebookPen } from "@lucide/astro";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"h2">;
+
+const { class: className, ...attributes } = Astro.props;
+const renderedLabel = await Astro.slots.render("default");
+const label = renderedLabel.replace(/<[^>]*>/g, "").trim().toLowerCase();
+
+const Icon =
+  label === "topics covered"
+    ? ListChecks
+    : label === "takeaways"
+      ? Lightbulb
+      : NotebookPen;
+---
+
+<h2
+  {...attributes}
+  class:list={[
+    "mt-16 mb-4 flex items-center gap-3 font-serif text-3xl leading-tight font-normal tracking-tight",
+    className,
+  ]}
+>
+  <Icon size={22} stroke-width={1.75} aria-hidden="true" class="shrink-0 text-accent" />
+  <slot />
+</h2>

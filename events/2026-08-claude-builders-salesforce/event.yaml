@@ -1,0 +1,52 @@
+id: 2026-08-claude-builders-salesforce
+title: "Claude Builders — Agentic Enterprise"
+slug: claude-builders-salesforce
+date: 2026-08-26
+type: attendance
+status: published
+series: cdmx-tech-summer-2026
+venue: Salesforce México
+location: Ciudad de México
+summary: >-
+  75-minute hands-on lab: connect Claude to a Salesforce org and leave with a
+  working flow. Same day as the Claudeforce announcement.
+description: >-
+  Field notes from the Claude Builders meetup at Salesforce CDMX: AI agents,
+  enterprise integration, and the Claude community in Mexico.
+tags:
+  - claude
+  - salesforce
+  - agents
+  - enterprise
+  - cdmx
+spotlight:
+  topics:
+    - AI agents in production
+    - Claude + Salesforce (Claudeforce)
+    - Hands-on labs vs talks
+    - Integration with real business data
+  communities:
+    - name: Claude Community México
+      url: https://claudecommunity.mx
+      note: Local Claude meetups organized by the community
+    - name: Salesforce México
+      url: https://www.linkedin.com/company/salesforce
+      note: Lab host. CRM ecosystem and Agentforce
+  people:
+    - name: Gabriel Ramirez
+      role: organizer
+      link: https://www.linkedin.com/in/gabanox
+sources:
+  notes: sources/notes.md
+  slides: sources/slides/
+gallery:
+  - file: published/gallery/lwc-showcase-ideas.jpg
+    caption: "Five Lightning Web Component ideas for the hands-on lab"
+  - file: published/gallery/claude-code-lwc-best-practices.jpg
+    caption: "Best practices for building Lightning Web Components with Claude Code"
+  - file: published/gallery/headless-360.jpg
+    caption: "Headless 360 connecting Salesforce to agents, apps, and AI models"
+links:
+  event: https://luma.com/claude-tx18
+published:
+  post: published/post.mdx

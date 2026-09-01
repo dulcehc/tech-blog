@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "chronicle": "node packages/chronicle/dist/cli-entry.js",
+    "chronicle:build": "pnpm --filter @blog/chronicle build",
+    "dev": "pnpm chronicle:build && pnpm chronicle sync && pnpm --filter @blog/site dev",
+    "build": "pnpm chronicle:build && pnpm chronicle validate && pnpm chronicle sync && pnpm --filter @blog/site build",
+    "site:publish": "pnpm build",
+    "preview": "pnpm --filter @blog/site preview",
+    "test": "pnpm --filter @blog/chronicle test",
+    "validate": "pnpm chronicle:build && pnpm chronicle validate"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "pnpm@10.15.0",
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

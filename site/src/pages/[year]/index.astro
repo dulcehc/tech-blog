@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArchiveFilters from "../../components/ArchiveFilters.astro";
+import EntryList from "../../components/EntryList.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import PageColumn from "../../components/PageColumn.astro";
+import { eventYear, uniqueYears } from "../../lib/archive";
+
+export async function getStaticPaths() {
+  const events = (await getCollection("events", ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.localeCompare(a.data.date),
+  );
+
+  return uniqueYears(events).map((year) => ({
+    params: { year },
+    props: {
+      year,
+      events,
+      filtered: events.filter((event) => eventYear(event.data.date) === year),
+    },
+  }));
+}
+
+const { year, events, filtered } = Astro.props;
+---
+
+<BaseLayout
+  title={`${year} · CDMX Tech Journal`}
+  description={`Event notes from ${year} in Mexico City.`}
+>
+  <SiteHeader />
+
+  <PageColumn>
+    <header class="pt-12 pb-8 text-left">
+      <p class="mb-3 font-mono text-[0.68rem] tracking-[0.16em] text-muted uppercase">
+        Journal
+      </p>
+      <h1 class="mb-3 font-serif text-[clamp(2.25rem,6vw,3.5rem)] leading-none">
+        {year}
+      </h1>
+      <p class="m-0 font-mono text-[0.75rem] tracking-wide text-muted">
+        {filtered.length} {filtered.length === 1 ? "entry" : "entries"}
+      </p>
+    </header>
+
+    <ArchiveFilters events={events} year={year} />
+
+    <main class="pb-16">
+      <EntryList events={filtered} heading={`${year} entries`} />
+    </main>
+  </PageColumn>
+</BaseLayout>

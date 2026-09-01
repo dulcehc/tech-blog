@@ -1,0 +1,105 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Badge from "../components/Badge.astro";
+import EventLinks from "../components/EventLinks.astro";
+import Gallery from "../components/Gallery.astro";
+import Prose from "../components/Prose.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import Spotlight from "../components/Spotlight.astro";
+import PageColumn from "../components/PageColumn.astro";
+import PageTurn from "../components/PageTurn.astro";
+import { formatDate } from "../lib/format";
+import { eventYear } from "../lib/archive";
+import type { Neighbor } from "../lib/neighbors";
+
+interface Props {
+  title: string;
+  summary?: string;
+  description?: string;
+  date: string;
+  type: string;
+  series?: string;
+  venue?: string;
+  location?: string;
+  tags?: string[];
+  links?: {
+    event?: string;
+    slides?: string;
+    video?: string;
+    repo?: string;
+  };
+  spotlight?: {
+    topics?: string[];
+    communities?: Array<{ name: string; url?: string; note?: string }>;
+    people?: Array<{
+      name: string;
+      role?: "organizer" | "speaker" | "community" | "other";
+      link: string;
+    }>;
+  };
+  gallery?: Array<{ src: string; caption?: string; alt?: string }>;
+  next?: Neighbor;
+}
+
+const {
+  title,
+  summary,
+  description,
+  date,
+  type,
+  venue,
+  location,
+  tags = [],
+  links,
+  spotlight,
+  gallery = [],
+  next,
+} = Astro.props;
+
+const lede = summary || description;
+const year = eventYear(date);
+---
+
+<BaseLayout title={`${title} · CDMX Tech Journal`} description={lede ?? title}>
+  {next && <PageTurn slot="corner" next={next} />}
+  <SiteHeader year={year} />
+
+  <PageColumn class="flex-1 pb-8">
+    <main>
+      <article>
+    <header class="my-10 border-b border-rule pb-7">
+      <p class="mb-4 font-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase">
+        <time datetime={date}>{formatDate(date)}</time>
+        {venue && <span class="mx-1.5 font-sans tracking-normal">·</span>}
+        {venue && <span class="font-sans text-[0.8rem] tracking-normal normal-case">{venue}</span>}
+        {location && <span class="mx-1.5 font-sans tracking-normal">·</span>}
+        {location && <span class="font-sans text-[0.8rem] tracking-normal normal-case">{location}</span>}
+      </p>
+      <h1
+        class="mb-4 font-serif text-[clamp(2.25rem,6vw,3.4rem)] leading-[0.98] font-normal tracking-[-0.03em]"
+      >
+        {title}
+      </h1>
+      {lede && <p class="mb-5 max-w-2xl text-base leading-7 text-muted">{lede}</p>}
+      <div class="mb-4 flex flex-wrap gap-2">
+        <Badge label={type} />
+        {tags.map((tag) => (
+          <Badge label={tag} muted />
+        ))}
+      </div>
+      <EventLinks links={links} />
+    </header>
+
+    <Gallery items={gallery} />
+    <Spotlight spotlight={spotlight} />
+
+    <Prose>
+      <slot />
+    </Prose>
+      </article>
+    </main>
+  </PageColumn>
+
+  <SiteFooter />
+</BaseLayout>

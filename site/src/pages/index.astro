@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ArchiveFilters from "../components/ArchiveFilters.astro";
+import EntryList from "../components/EntryList.astro";
+import PageColumn from "../components/PageColumn.astro";
+
+const events = (await getCollection("events"))
+  .filter((e) => !e.data.draft)
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout
+  title="CDMX Tech Journal"
+  description="Notes from tech events in Mexico City. Communities and topics, not a travel diary."
+>
+  <PageColumn>
+    <header class="pt-16 pb-12 text-left max-sm:pt-12 max-sm:pb-10">
+      <p class="mb-5 font-mono text-[0.7rem] tracking-[0.18em] text-muted uppercase">
+        Communities · Events · Ideas
+      </p>
+      <h1
+        class="mb-5 font-serif text-[clamp(2.75rem,8vw,4.5rem)] leading-[0.92] font-normal tracking-[-0.03em]"
+      >
+        CDMX Tech Journal
+      </h1>
+      <p class="m-0 max-w-lg text-[0.95rem] leading-7 text-muted">
+        A journal of technology events in Mexico City. What people built, what
+        communities shared, and what was worth keeping.
+      </p>
+    </header>
+
+    {events.length > 0 && <ArchiveFilters events={events} />}
+
+    <main class="pb-12">
+      <EntryList events={events} />
+    </main>
+  </PageColumn>
+</BaseLayout>

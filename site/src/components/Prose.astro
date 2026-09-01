@@ -1,0 +1,96 @@
+<div class="prose">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    max-width: 50rem;
+    font-size: 1rem;
+  }
+
+  .prose :global(h3) {
+    margin: 2rem 0 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .prose :global(p) {
+    margin: 0 0 1.75rem;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 1.75rem;
+    padding-left: 1.25rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+    padding-left: 0.25rem;
+  }
+
+  .prose :global(li)::marker {
+    color: var(--color-accent);
+  }
+
+  .prose :global(h2#topics-covered + ul),
+  .prose :global(h2#takeaways + ul) {
+    display: grid;
+    gap: 0.75rem;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .prose :global(h2#topics-covered + ul li),
+  .prose :global(h2#takeaways + ul li) {
+    position: relative;
+    margin: 0;
+    padding-left: 1.875rem;
+  }
+
+  .prose :global(h2#topics-covered + ul li)::before,
+  .prose :global(h2#takeaways + ul li)::before {
+    content: "";
+    position: absolute;
+    top: 0.7rem;
+    left: 0.2rem;
+    width: 0.35rem;
+    height: 0.35rem;
+    background: var(--color-accent);
+  }
+
+  .prose :global(a) {
+    color: var(--color-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .prose :global(blockquote) {
+    margin: 2rem 0;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    border-left: 2px solid var(--color-accent);
+    color: var(--color-muted);
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+  }
+
+  .prose :global(code) {
+    padding: 0.12em 0.35em;
+    border-radius: 0.25rem;
+    background: var(--color-accent-soft);
+    font-size: 0.9em;
+  }
+
+  .prose :global(pre) {
+    overflow-x: auto;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .prose :global(pre code) {
+    padding: 0;
+    background: none;
+  }
+</style>
